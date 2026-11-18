@@ -1,0 +1,49 @@
+<div class="app">
+  <header class="header">
+    <h1>Password Generator</h1>
+    <p class="muted">Random passwords, generated locally.</p>
+  </header>
+  <section class="card">
+    <div class="field">
+      <div class="field-head"><span class="label">Password</span><button class="btn btn-sm btn-ghost" id="copy">Copy</button></div>
+      <pre class="output" id="out" style="min-height:0" data-placeholder="Generate one"></pre>
+    </div>
+    <div class="prop">
+      <span class="prop-label">Length</span><input class="prop-value" id="lenV" value="20">
+      <input type="range" class="slider" id="len" min="8" max="64" value="20" style="--p:21%">
+    </div>
+    <div class="row wrap">
+      <label class="check"><input type="checkbox" id="upper" checked> A-Z</label>
+      <label class="check"><input type="checkbox" id="lower" checked> a-z</label>
+      <label class="check"><input type="checkbox" id="digits" checked> 0-9</label>
+      <label class="check"><input type="checkbox" id="symbols"> Symbols</label>
+    </div>
+    <div class="row"><button class="btn btn-primary" id="gen">Generate</button></div>
+  </section>
+</div>
+<script>
+  var $ = function (id) { return document.getElementById(id) }
+  var sets = { upper: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', lower: 'abcdefghijklmnopqrstuvwxyz', digits: '0123456789', symbols: '!@#$%^&*()-_=+[]{};:,.?' }
+  function gen() {
+    var pool = ''
+    Object.keys(sets).forEach(function (k) { if ($(k).checked) pool += sets[k] })
+    if (!pool) pool = sets.lower
+    var n = +$('len').value, buf = new Uint32Array(n), out = ''
+    crypto.getRandomValues(buf)
+    for (var i = 0; i < n; i++) out += pool[buf[i] % pool.length]
+    $('out').textContent = out
+  }
+  $('len').addEventListener('input', function () {
+    this.style.setProperty('--p', ((this.value - this.min) / (this.max - this.min) * 100) + '%')
+    $('lenV').value = this.value; gen()
+  })
+  $('gen').addEventListener('click', gen)
+  ;['upper', 'lower', 'digits', 'symbols'].forEach(function (k) { $(k).addEventListener('change', gen) })
+  $('copy').addEventListener('click', function () {
+    var b = this
+    navigator.clipboard.writeText($('out').textContent).then(function () {
+      b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy' }, 1200)
+    })
+  })
+  gen()
+</script>

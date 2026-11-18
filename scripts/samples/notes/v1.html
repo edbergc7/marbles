@@ -1,0 +1,56 @@
+<div class="app">
+  <header class="header">
+    <h1>Notes</h1>
+    <p class="muted">Saved with host.storage, so notes survive a reload.</p>
+  </header>
+  <section class="card">
+    <div class="field">
+      <span class="label">New note</span>
+      <textarea class="textarea" id="text" placeholder="Write something..."></textarea>
+    </div>
+    <div class="row row-between">
+      <span class="hint" id="status">Loading...</span>
+      <button class="btn btn-primary" id="add">Save note</button>
+    </div>
+  </section>
+  <section class="card card-flush">
+    <ul class="list" id="list"></ul>
+    <div class="empty" id="empty" hidden>No notes yet.</div>
+  </section>
+</div>
+<script>
+  var $ = function (id) { return document.getElementById(id) }
+  var notes = []
+  function render() {
+    var list = $('list')
+    list.innerHTML = ''
+    notes.forEach(function (n) {
+      var li = document.createElement('li')
+      li.className = 'row row-between'
+      li.style.padding = '8px 12px'
+      var span = document.createElement('span')
+      span.textContent = n.text
+      var b = document.createElement('button')
+      b.className = 'btn btn-sm btn-ghost'
+      b.textContent = 'Delete'
+      b.onclick = function () {
+        notes = notes.filter(function (x) { return x.id !== n.id })
+        save()
+      }
+      li.appendChild(span); li.appendChild(b); list.appendChild(li)
+    })
+    $('empty').hidden = notes.length > 0
+    $('status').textContent = notes.length + ' note' + (notes.length === 1 ? '' : 's')
+  }
+  function save() {
+    return host.storage.set('notes', notes).then(render).catch(function (e) { $('status').textContent = 'Error: ' + e.message })
+  }
+  $('add').addEventListener('click', function () {
+    var t = $('text').value.trim()
+    if (!t) return
+    notes.unshift({ id: Date.now(), text: t })
+    $('text').value = ''
+    save()
+  })
+  host.storage.get('notes').then(function (v) { notes = Array.isArray(v) ? v : []; render() })
+</script>

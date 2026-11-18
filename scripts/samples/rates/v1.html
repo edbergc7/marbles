@@ -1,0 +1,41 @@
+<div class="app">
+  <header class="header">
+    <h1>Rates</h1>
+    <p class="muted">Live USD exchange rates via host.fetch (frankfurter.app).</p>
+  </header>
+  <section class="card">
+    <div class="prop">
+      <span class="prop-label">Amount</span><input class="prop-value" id="amtV" value="100">
+      <input type="range" class="slider" id="amt" min="1" max="1000" value="100">
+    </div>
+    <div class="row row-between"><span class="hint" id="status">Loading...</span><button class="btn btn-sm" id="reload">Refresh</button></div>
+  </section>
+  <section class="card card-flush">
+    <table class="table">
+      <thead><tr><th>Currency</th><th class="num">Rate</th><th class="num">Converted</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </section>
+</div>
+<script>
+  var $ = function (id) { return document.getElementById(id) }
+  var rates = {}
+  function render() {
+    var amt = +$('amt').value
+    $('amtV').value = amt
+    $('rows').innerHTML = Object.keys(rates).sort().map(function (c) {
+      return '<tr><td>' + c + '</td><td class="num">' + rates[c].toFixed(4) + '</td><td class="num">' + (rates[c] * amt).toFixed(2) + '</td></tr>'
+    }).join('')
+  }
+  function load() {
+    $('status').textContent = 'Loading...'
+    host.fetch('https://api.frankfurter.app/latest?from=USD').then(function (r) {
+      if (r.status !== 200) throw new Error('HTTP ' + r.status)
+      var d = JSON.parse(r.body)
+      rates = d.rates; $('status').textContent = 'Rates as of ' + d.date; render()
+    }).catch(function (e) { $('status').textContent = 'Failed: ' + e.message })
+  }
+  $('amt').addEventListener('input', render)
+  $('reload').addEventListener('click', load)
+  load()
+</script>

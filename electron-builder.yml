@@ -1,0 +1,62 @@
+appId: com.marbles.app
+productName: Marbles
+directories:
+  buildResources: build
+  # One folder per platform: dist/linux, dist/win, dist/mac
+  output: dist/${os}
+# An allowlist: only these go into app.asar (package.json and production
+# node_modules are added automatically). A list of exclusions let new files
+# at the repo root, and other platforms' dist folders, slip into the package.
+files:
+  - out/**
+  - resources/**
+  - LICENSE
+# Unpacked resources are data files read by path, not app code, so they
+# work with onlyLoadAppFromAsar (app code itself stays in app.asar).
+asarUnpack:
+  - resources/**
+# Fuses are flipped at pack time, before signing.
+electronFuses:
+  runAsNode: false
+  enableNodeOptionsEnvironmentVariable: false
+  enableNodeCliInspectArguments: false
+  onlyLoadAppFromAsar: true
+  # Checked on macOS and Windows only; Linux ignores it.
+  enableEmbeddedAsarIntegrityValidation: true
+  enableCookieEncryption: true
+  # Off: the renderer is served from app://marbles (appScheme.ts), not file://.
+  grantFileProtocolExtraPrivileges: false
+  # Flipping fuses invalidates the ad-hoc signature Electron ships with on
+  # arm64 macOS, and this build is unsigned, so re-apply it (needs macOS).
+  resetAdHocDarwinSignature: true
+win:
+  executableName: marbles
+  # zip builds on Linux as-is. The nsis installer (setup.exe) needs Wine,
+  # so on Linux without Wine use `build:win:installer` on Windows instead.
+  target:
+    - target: zip
+      arch: [x64]
+  artifactName: ${name}-${version}-win-${arch}.${ext}
+nsis:
+  artifactName: ${name}-${version}-setup.${ext}
+  shortcutName: ${productName}
+  uninstallDisplayName: ${productName}
+  createDesktopShortcut: always
+mac:
+  hardenedRuntime: true
+  entitlements: build/entitlements.mac.plist
+  entitlementsInherit: build/entitlements.mac.plist
+  extendInfo:
+    - NSDocumentsFolderUsageDescription: Marbles needs access to your Documents folder to open and save files.
+    - NSDownloadsFolderUsageDescription: Marbles needs access to your Downloads folder to open and save files.
+  notarize: false
+dmg:
+  artifactName: ${name}-${version}.${ext}
+linux:
+  target:
+    - AppImage
+  category: Utility
+appImage:
+  artifactName: ${name}-${version}.${ext}
+npmRebuild: false
+publish: null

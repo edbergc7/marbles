@@ -1,0 +1,61 @@
+<div class="app app-full">
+  <div class="toolbar">
+    <strong>Halftone v2</strong>
+    <div class="spacer"></div>
+    <button class="btn" id="reset">Reset</button>
+    <button class="btn btn-primary" id="save">Download PNG</button>
+  </div>
+  <div class="workspace">
+    <div class="stage stage-fill stage-plain"><canvas id="c" width="640" height="420"></canvas></div>
+    <aside class="props">
+      <div class="props-head"><span>Props</span></div>
+      <details class="section" open>
+        <summary>Dots</summary>
+        <div class="section-body">
+          <div class="prop"><span class="prop-label">Size</span><input class="prop-value" id="sizeV" value="12"><input type="range" class="slider" id="size" min="4" max="32" value="12" style="--p:29%"></div>
+          <div class="prop"><span class="prop-label">Angle</span><input class="prop-value" id="angleV" value="45"><input type="range" class="slider" id="angle" min="0" max="90" value="45" style="--p:50%"></div>
+        </div>
+      </details>
+      <details class="section" open>
+        <summary>Shape</summary>
+        <div class="section-body">
+          <div class="prop"><span class="prop-label">Style</span><select class="select" id="shape"><option value="circle">Circle</option><option value="square">Square</option></select></div>
+          <div class="prop"><span class="prop-label">Gain</span><input class="prop-value" id="gainV" value="100"><input type="range" class="slider" id="gain" min="20" max="160" value="100" style="--p:57%"></div>
+        </div>
+      </details>
+    </aside>
+  </div>
+</div>
+<script>
+  var c = document.getElementById('c'), ctx = c.getContext('2d')
+  var size = document.getElementById('size'), angle = document.getElementById('angle')
+  function sync(el, out) {
+    var p = (el.value - el.min) / (el.max - el.min) * 100
+    el.style.setProperty('--p', p + '%')
+    document.getElementById(out).value = el.value
+  }
+  function draw() {
+    var s = +size.value, a = +angle.value * Math.PI / 180
+    var fg = getComputedStyle(document.body).color
+    ctx.clearRect(0, 0, c.width, c.height)
+    ctx.fillStyle = fg
+    var cos = Math.cos(a), sin = Math.sin(a), diag = Math.hypot(c.width, c.height)
+    for (var u = -diag; u < diag; u += s) for (var v = -diag; v < diag; v += s) {
+      var x = c.width / 2 + u * cos - v * sin, y = c.height / 2 + u * sin + v * cos
+      if (x < 0 || y < 0 || x > c.width || y > c.height) continue
+      var t = (Math.sin(x / 90) + Math.cos(y / 70) + 2) / 4
+      var r = t * s * 0.5 * (+document.getElementById('gain').value / 100)
+      if (document.getElementById('shape').value === 'square') ctx.fillRect(x - r, y - r, r * 2, r * 2)
+      else { ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill() }
+    }
+  }
+  var gain = document.getElementById('gain')
+  function update() { sync(size, 'sizeV'); sync(angle, 'angleV'); sync(gain, 'gainV'); draw() }
+  gain.addEventListener('input', update); document.getElementById('shape').addEventListener('change', update)
+  size.addEventListener('input', update); angle.addEventListener('input', update)
+  document.getElementById('reset').addEventListener('click', function () { size.value = 12; angle.value = 45; update() })
+  document.getElementById('save').addEventListener('click', function () {
+    var a = document.createElement('a'); a.href = c.toDataURL('image/png'); a.download = 'halftone.png'; a.click()
+  })
+  update()
+</script>

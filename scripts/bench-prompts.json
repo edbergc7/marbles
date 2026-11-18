@@ -1,0 +1,224 @@
+[
+  {
+    "id": "a-pomodoro",
+    "tier": "fits",
+    "build": true,
+    "prompt": "Pomodoro timer with a log of today's sessions"
+  },
+  {
+    "id": "a-bill",
+    "tier": "fits",
+    "build": true,
+    "prompt": "Split a restaurant bill between friends with tip and who ordered what"
+  },
+  {
+    "id": "a-citation",
+    "tier": "fits",
+    "build": false,
+    "prompt": "Turn a book or website's details into an APA 7 citation"
+  },
+  {
+    "id": "a-flashcards",
+    "tier": "fits",
+    "build": false,
+    "prompt": "Flashcards for my Spanish vocab, I paste a list and it quizzes me"
+  },
+  {
+    "id": "a-csv",
+    "tier": "fits",
+    "build": false,
+    "prompt": "Drop a CSV, remove duplicate rows and empty columns, download the cleaned file"
+  },
+  {
+    "id": "a-email-ai",
+    "tier": "fits",
+    "build": false,
+    "prompt": "Paste a rough email and rewrite it to sound more professional"
+  },
+  {
+    "id": "b-kanban",
+    "tier": "stretch",
+    "build": true,
+    "prompt": "Kanban board with columns I can rename, drag and drop cards, and it remembers everything"
+  },
+  {
+    "id": "b-invoice",
+    "tier": "stretch",
+    "build": true,
+    "prompt": "Invoice maker: my details, client, line items, tax and discount, saves past invoices, print to PDF"
+  },
+  {
+    "id": "b-notes",
+    "tier": "stretch",
+    "build": true,
+    "prompt": "Markdown notes app with folders, tags, full-text search and a live preview"
+  },
+  {
+    "id": "b-grades",
+    "tier": "stretch",
+    "build": false,
+    "prompt": "Track my grades per course with weighted categories and show what I need on the final to get an A"
+  },
+  {
+    "id": "c-spreadsheet",
+    "tier": "product",
+    "build": true,
+    "prompt": "A full spreadsheet app like Excel with formulas, multiple sheets, charts, cell formatting and import/export of xlsx"
+  },
+  {
+    "id": "c-video",
+    "tier": "product",
+    "build": true,
+    "prompt": "A video editor with a multi-track timeline, cuts, transitions, text overlays and MP4 export"
+  },
+  {
+    "id": "c-crm",
+    "tier": "product",
+    "build": true,
+    "prompt": "A CRM for my small business: contacts, companies, deals pipeline, tasks, email templates, reports dashboard and calendar"
+  },
+  {
+    "id": "c-lms",
+    "tier": "product",
+    "build": false,
+    "prompt": "Build me a learning platform with courses, lessons, quizzes, progress tracking and certificates"
+  },
+  {
+    "id": "d-social",
+    "tier": "impossible",
+    "build": true,
+    "prompt": "A social network for my class where students can sign up, post and comment on each other's posts"
+  },
+  {
+    "id": "d-store",
+    "tier": "impossible",
+    "build": true,
+    "prompt": "An online store for my candles with product pages, a cart, Stripe checkout and an admin page for orders"
+  },
+  {
+    "id": "d-outlook",
+    "tier": "impossible",
+    "build": true,
+    "prompt": "Read my Outlook inbox every morning and send me a summary of what needs a reply"
+  },
+  {
+    "id": "d-chess",
+    "tier": "impossible",
+    "build": false,
+    "prompt": "Online chess where I can play my friends in real time"
+  },
+  {
+    "id": "d-website",
+    "tier": "impossible",
+    "build": false,
+    "prompt": "Make a landing page for my startup and put it online at my domain"
+  },
+  {
+    "id": "d-booking",
+    "tier": "impossible",
+    "build": false,
+    "prompt": "A booking page where my clients pick a time slot and get a confirmation email"
+  },
+  {
+    "id": "e-vague",
+    "tier": "fits",
+    "build": false,
+    "prompt": "something to help me study"
+  },
+  {
+    "id": "e-weather",
+    "tier": "fits",
+    "build": false,
+    "prompt": "Show the weather forecast for my city for the next 7 days"
+  },
+  {
+    "id": "e-budget",
+    "tier": "fits",
+    "build": false,
+    "prompt": "Monthly budget tracker with categories and a pie chart"
+  },
+  {
+    "id": "e-team-todo",
+    "tier": "impossible",
+    "build": false,
+    "prompt": "A to-do list my team can all edit together"
+  },
+  {
+    "id": "f-habit",
+    "tier": "fits",
+    "build": false,
+    "prompt": "Habit tracker with a streak calendar"
+  },
+  {
+    "id": "f-quiz",
+    "tier": "fits",
+    "build": false,
+    "prompt": "Make a quiz from my lecture notes with AI and grade my answers"
+  },
+  {
+    "id": "f-recipe",
+    "tier": "fits",
+    "build": false,
+    "prompt": "Scale a recipe up or down and convert units"
+  },
+  {
+    "id": "f-pdf",
+    "tier": "fits",
+    "build": false,
+    "prompt": "Merge a few PDFs into one"
+  },
+  {
+    "id": "f-collage",
+    "tier": "fits",
+    "build": false,
+    "prompt": "Photo collage maker with layouts and export"
+  },
+  {
+    "id": "f-meeting",
+    "tier": "fits",
+    "build": false,
+    "prompt": "Paste meeting notes and pull out action items with owners and dates"
+  },
+  {
+    "id": "f-gpa",
+    "tier": "fits",
+    "build": false,
+    "prompt": "GPA calculator with my courses and credits, saved between sessions"
+  },
+  {
+    "id": "f-timesheet",
+    "tier": "fits",
+    "build": false,
+    "prompt": "Weekly timesheet with projects, hours per day and totals, export to CSV"
+  },
+  {
+    "id": "f-planner",
+    "tier": "fits",
+    "build": false,
+    "prompt": "Study planner: my exams, topics per exam, and a daily schedule until each exam"
+  },
+  {
+    "id": "f-expenses",
+    "tier": "fits",
+    "build": false,
+    "prompt": "Expense tracker with receipts photos, categories, monthly charts and CSV export"
+  },
+  {
+    "id": "g-slack",
+    "tier": "impossible",
+    "build": false,
+    "prompt": "Post a reminder in our team Slack channel every Friday"
+  },
+  {
+    "id": "g-shared-cal",
+    "tier": "impossible",
+    "build": false,
+    "prompt": "A shared calendar for my family where everyone adds events"
+  },
+  {
+    "id": "g-erp",
+    "tier": "product",
+    "build": false,
+    "prompt": "An ERP for my factory with inventory, purchasing, production planning, HR, payroll and accounting"
+  }
+]

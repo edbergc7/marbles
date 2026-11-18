@@ -1,0 +1,17 @@
+<div class="app">
+  <header class="header">
+    <h1>Broken</h1>
+    <p class="muted">Deliberately throws errors to exercise error capture.</p>
+  </header>
+  <section class="card">
+    <p>This app has a ReferenceError on load, an unhandled promise rejection, and a script that 404s.</p>
+    <div class="row"><button class="btn" id="again">Throw again</button></div>
+  </section>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/does-not-exist/9.9.9/missing.min.js"></script>
+<script>
+  document.getElementById('again').addEventListener('click', function () { notDefinedFunction2() })
+  Promise.reject(new Error('Rejected on purpose'))
+  console.error('console.error sample')
+  undefinedVariable.doSomething()
+</script>

@@ -1,0 +1,60 @@
+{
+  "name": "marbles",
+  "productName": "Marbles",
+  "version": "1.0.0",
+  "description": "Generate, keep, and refine small single-file HTML tools with AI",
+  "main": "./out/main/index.js",
+  "author": "edbergc7",
+  "license": "GPL-3.0-or-later",
+  "homepage": "https://github.com/edbergc7/marbles",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edbergc7/marbles.git"
+  },
+  "bugs": {
+    "url": "https://github.com/edbergc7/marbles/issues"
+  },
+  "scripts": {
+    "format": "prettier --plugin prettier-plugin-svelte --write .",
+    "lint": "eslint --cache .",
+    "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
+    "svelte-check": "svelte-check --tsconfig ./tsconfig.web.json",
+    "typecheck": "pnpm run typecheck:node && pnpm run svelte-check",
+    "start": "electron-vite preview",
+    "dev": "electron-vite dev",
+    "dev:gl": "electron-vite dev -- --enable-unsafe-swiftshader",
+    "test": "node scripts/test-genparser.mjs && node scripts/test-library-layout.mjs && node scripts/test-netguard.mjs && node scripts/test-export.mjs && node scripts/test-chatgpt.mjs && node scripts/test-secrets.mjs && node scripts/test-guard.mjs && node scripts/test-hostai.mjs && node scripts/test-notices.mjs && node scripts/test-attachments.mjs && node scripts/test-bridge-persist.mjs",
+    "seed": "node scripts/seed-library.mjs",
+    "build": "pnpm run typecheck && electron-vite build",
+    "postinstall": "install-electron && electron-builder install-app-deps",
+    "build:unpack": "pnpm run build && electron-builder --dir",
+    "build:win": "pnpm run build && electron-builder --win",
+    "build:win:installer": "pnpm run build && electron-builder --win nsis",
+    "build:mac": "pnpm run build && electron-builder --mac",
+    "build:linux": "pnpm run build && electron-builder --linux"
+  },
+  "dependencies": {
+    "@electron-toolkit/utils": "^4.0.0",
+    "@fontsource-variable/inter": "^5.3.0",
+    "mammoth": "^1.13.0",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  },
+  "devDependencies": {
+    "@electron-toolkit/eslint-config-prettier": "^3.0.1",
+    "@electron-toolkit/eslint-config-ts": "^4.0.0",
+    "@electron-toolkit/tsconfig": "^2.0.0",
+    "@sveltejs/vite-plugin-svelte": "^7.3.1",
+    "@types/node": "^24.19.2",
+    "electron": "^44.11.3",
+    "electron-builder": "^26.15.3",
+    "electron-vite": "^6.0.0",
+    "eslint": "^10.12.0",
+    "eslint-plugin-svelte": "^3.23.1",
+    "prettier": "^3.9.10",
+    "prettier-plugin-svelte": "^4.1.1",
+    "svelte": "^5.57.2",
+    "svelte-check": "^4.7.6",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.4"
+  }
+}

@@ -1,0 +1,55 @@
+<div class="app">
+  <header class="header">
+    <h1>Text Case</h1>
+    <p class="muted">Convert text between common cases.</p>
+  </header>
+  <div class="segmented" id="modes">
+    <button class="is-active" data-mode="upper">UPPER</button>
+    <button data-mode="lower">lower</button>
+    <button data-mode="title">Title</button>
+    <button data-mode="snake">snake_case</button>
+    <button data-mode="kebab">kebab-case</button>
+    <button data-mode="camel">camelCase</button>
+  </div>
+  <div class="grid-2">
+    <label class="field">
+      <span class="label">Input</span>
+      <textarea class="textarea" id="input" placeholder="Type or paste text"></textarea>
+    </label>
+    <div class="field">
+      <span class="label">Output</span>
+      <pre class="output" id="output" data-placeholder="Result appears here"></pre>
+    </div>
+  </div>
+  <div class="row" style="gap:24px">
+    <div class="stat"><span class="stat-value num" id="chars">0</span><span class="stat-label">Characters</span></div>
+    <div class="stat"><span class="stat-value num" id="wc">0</span><span class="stat-label">Words</span></div>
+  </div>
+</div>
+<script>
+  var mode = 'upper'
+  var input = document.getElementById('input')
+  var output = document.getElementById('output')
+  function words(s) { return s.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean) }
+  function convert(s) {
+    if (mode === 'upper') return s.toUpperCase()
+    if (mode === 'lower') return s.toLowerCase()
+    if (mode === 'title') return s.toLowerCase().replace(/\b[a-z]/g, function (c) { return c.toUpperCase() })
+    if (mode === 'kebab') return words(s).join('-')
+    if (mode === 'camel') return words(s).map(function (w, i) { return i ? w[0].toUpperCase() + w.slice(1) : w }).join('')
+    return words(s).join('_')
+  }
+  function render() {
+    output.textContent = convert(input.value)
+    document.getElementById('chars').textContent = input.value.length
+    document.getElementById('wc').textContent = words(input.value).length
+  }
+  input.addEventListener('input', render)
+  document.getElementById('modes').addEventListener('click', function (e) {
+    var b = e.target.closest('button')
+    if (!b) return
+    mode = b.dataset.mode
+    document.querySelectorAll('#modes button').forEach(function (x) { x.classList.toggle('is-active', x === b) })
+    render()
+  })
+</script>

@@ -1,0 +1,46 @@
+/* =============================================================================
+   shell.css: host-only additions on top of design.css.
+
+   Tokens, labels, surfaces and the bracket mark live in design.css and are
+   shared with generated apps. This file only holds what the shell does that
+   apps must not: uppercase command buttons (app buttons often carry content,
+   like "camelCase", so they keep their case).
+   ============================================================================= */
+
+:root {
+  --bar-h: 44px;
+}
+
+body {
+  letter-spacing: 0.005em;
+}
+
+/* Every shell button is a fixed command, so all of them use the label voice. */
+.btn {
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+}
+.btn-sm {
+  font-size: var(--text-xs);
+}
+/* Stop buttons turn red on hover, so it reads as the destructive one. */
+.btn.btn-stop:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--danger) 14%, transparent);
+  color: var(--danger);
+}
+.btn-lg {
+  font-size: var(--text-md);
+}
+.segmented > button {
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+}
+
+.kbd {
+  min-width: 16px;
+  height: 16px;
+  font-size: 9.5px;
+  background: transparent;
+}
