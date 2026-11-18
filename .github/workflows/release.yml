@@ -99,7 +99,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           ls -lR files
-          gh release create "$GITHUB_REF_NAME" files/* \
+          gh release create "$GITHUB_REF_NAME" files/*/* \
             --repo "$GITHUB_REPOSITORY" \
             --draft --verify-tag \
             --title "Marbles ${GITHUB_REF_NAME#v}" \
