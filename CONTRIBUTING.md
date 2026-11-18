@@ -40,14 +40,15 @@ pnpm format      # prettier, rewrites files
 pnpm build                # typecheck and compile to out/
 pnpm start                # run the compiled build from out/
 pnpm build:linux          # AppImage → dist/linux/marbles-<version>.AppImage
-pnpm build:win            # zip → dist/win/marbles-<version>-win-x64.zip
-pnpm build:mac            # dmg → dist/mac/marbles-<version>.dmg (on a Mac only)
+pnpm build:win            # installer and zip → dist/win/ (on Windows, or Linux with Wine)
+pnpm build:win:zip        # zip only → dist/win/marbles-<version>-win-x64.zip (works on Linux)
+pnpm build:mac            # dmg for Apple silicon and Intel → dist/mac/ (on a Mac only)
 pnpm build:unpack         # unpacked app only, faster, for testing a packaged build
 ```
 
 Each system builds into its own folder under `dist`. The version in the file name comes from `version` in `package.json`.
 
-The Windows zip builds on Linux as it is. The Windows installer (`pnpm build:win:installer`) needs Wine or a Windows machine.
+Releases are built by GitHub Actions (`.github/workflows/release.yml`) on Windows, macOS and Linux. Pushing a tag like `v1.2.0` that matches `version` in `package.json` builds all three and attaches them to a draft release, which a maintainer checks and publishes. You can also run the workflow by hand from the Actions tab to get the builds without a release.
 
 Builds are not code-signed, on purpose, so Windows and macOS show a warning on first launch. The README explains how to get past it.
 

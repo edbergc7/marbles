@@ -6,6 +6,10 @@
   "main": "./out/main/index.js",
   "author": "edbergc7",
   "license": "GPL-3.0-or-later",
+  "packageManager": "pnpm@12.17.0",
+  "engines": {
+    "node": ">=24"
+  },
   "homepage": "https://github.com/edbergc7/marbles",
   "repository": {
     "type": "git",
@@ -29,7 +33,7 @@
     "postinstall": "install-electron && electron-builder install-app-deps",
     "build:unpack": "pnpm run build && electron-builder --dir",
     "build:win": "pnpm run build && electron-builder --win",
-    "build:win:installer": "pnpm run build && electron-builder --win nsis",
+    "build:win:zip": "pnpm run build && electron-builder --win zip",
     "build:mac": "pnpm run build && electron-builder --mac",
     "build:linux": "pnpm run build && electron-builder --linux"
   },

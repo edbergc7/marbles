@@ -1,27 +1,71 @@
+<div align="center">
+
+<img src="build/icon.png" alt="Marbles logo" width="96" height="96">
+
 # Marbles
 
-Marbles is a desktop app that builds small tools for you with AI and keeps them in a library. You describe what you need ("an image cropper with aspect presets", "a bill splitter"), and a minute later it is a working app in your sidebar. To change it, say what to add or fix. Every change is a new version you can undo.
+**Describe a small tool. Get a working app. Keep it.**
 
-![Marbles with a halftone image tool open](docs/screenshot.png)
+A desktop app that builds small tools for you with AI and keeps them in a library on your computer.
 
-- **Your tools stay with you.** Each one is a plain HTML file in a folder on your computer. There is no account and no Marbles server.
-- **Bring your own AI.** Sign in with a ChatGPT Plus or Pro plan, or add an [OpenRouter](https://openrouter.ai) API key and pick any model.
-- **Tools run in a sandbox.** A generated tool can't read your files or reach the rest of your computer.
-- **Export** any tool as a single HTML file that opens in a browser.
+[![Download](https://img.shields.io/badge/download-latest-ff6b2c)](https://github.com/edbergc7/marbles/releases/latest)
+[![License: GPL v3+](https://img.shields.io/badge/license-GPL--3.0--or--later-blue)](LICENSE)
+![Platforms](https://img.shields.io/badge/platforms-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)
 
-Marbles is free software under the [GPL v3 or later](LICENSE). It runs on Windows, macOS and Linux.
+[Download](#download) · [How it works](#how-it-works) · [Privacy](#what-leaves-your-computer) · [Contributing](CONTRIBUTING.md)
+
+<br>
+
+<img src="docs/screenshots/chat.png" alt="Marbles with a text case tool open and the chat showing three versions of changes" width="900">
+
+</div>
+
+## Why Marbles
+
+You describe what you need, such as "an image cropper with aspect presets" or "a bill splitter", and a minute later it is a working app in your sidebar. To change it, say what to add or fix. Every change is a new version you can undo.
+
+|                                  |                                                                                                                    |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| 🗂️ **Your tools stay with you**  | Each one is a plain HTML file in a folder on your computer. There is no account and no Marbles server.             |
+| 🔑 **Bring your own AI**         | Sign in with a ChatGPT Plus or Pro plan, or add an [OpenRouter](https://openrouter.ai) API key and pick any model. |
+| 🛡️ **Tools run in a sandbox**    | A generated tool can't read your files or reach the rest of your computer.                                         |
+| ↩️ **Every change is a version** | Step back and forth between versions, or undo a change that went wrong.                                            |
+| 📤 **Export anywhere**           | Save any tool as a single HTML file that opens in a browser.                                                       |
+
+## Screenshots
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/new-app.png" alt="The New App screen with a prompt box and suggestions"></td>
+    <td width="50%"><img src="docs/screenshots/halftone.png" alt="A generated halftone image tool with sliders"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Start a tool</b><br>Describe it in a sentence, or pick a suggestion.</td>
+    <td align="center"><b>Use it</b><br>Tools share one clean look, with real controls.</td>
+  </tr>
+</table>
+
+## How it works
+
+1. **Describe it.** Type what you need on the New App screen. You can attach images or documents for reference.
+2. **Watch it build.** Marbles shows a short plan and ticks it off as the AI writes the tool. The finished tool appears when it is complete.
+3. **Change it.** Open the chat and say what to add or fix. Each change becomes a new version, and your current one stays usable while it builds.
+4. **Keep it.** Every tool is saved to your library automatically. Rename it, pin it, sort it into folders, or export it.
 
 ## Download
 
-Get the latest version from the [releases page](https://github.com/edbergc7/marbles/releases/latest):
+Get the latest version from the [releases page](https://github.com/edbergc7/marbles/releases/latest).
 
-| System  | File                            |
-| ------- | ------------------------------- |
-| Windows | `marbles-<version>-win-x64.zip` |
-| macOS   | `marbles-<version>.dmg`         |
-| Linux   | `marbles-<version>.AppImage`    |
+| System                | File                              |
+| --------------------- | --------------------------------- |
+| Windows               | `marbles-<version>-setup.exe`     |
+| Windows, no install   | `marbles-<version>-win-x64.zip`   |
+| macOS (Apple silicon) | `marbles-<version>-mac-arm64.dmg` |
+| macOS (Intel)         | `marbles-<version>-mac-x64.dmg`   |
+| Linux                 | `marbles-<version>.AppImage`      |
 
-**The builds are not code-signed.** Signing certificates cost money every year and Marbles is free, so your system will warn you the first time you open it. The steps below get you past the warning. If you would rather not trust a download, you can [build it from source](CONTRIBUTING.md).
+> [!NOTE]
+> **The builds are not code-signed.** Signing certificates cost money every year and Marbles is free, so your system warns you the first time you open it. The steps below get you past the warning. If you would rather not trust a download, you can [build it from source](CONTRIBUTING.md).
 
 Marbles never installs anything by itself. When a new version is out it shows a banner with a link back to the releases page.
 
@@ -29,9 +73,13 @@ Marbles never installs anything by itself. When a new version is out it shows a 
 
 ### Windows
 
-1. Extract the zip to a folder you'll keep, such as `Documents\Marbles`.
-2. Run `marbles.exe`.
-3. Windows shows "Windows protected your PC". Click **More info**, then **Run anyway**.
+1. Run `marbles-<version>-setup.exe`.
+2. Windows shows "Windows protected your PC". Click **More info**, then **Run anyway**.
+3. Marbles installs for your account only, with no admin prompt, and opens. It adds a Start menu entry and a desktop shortcut.
+
+To uninstall, use **Settings → Apps**. Your library, settings and API key stay in `%APPDATA%\Marbles`, so reinstalling brings everything back.
+
+**No install:** extract `marbles-<version>-win-x64.zip` to a folder you'll keep, such as `Documents\Marbles`, and run `marbles.exe`. You get the same warning the first time.
 
 ### macOS
 
@@ -52,16 +100,26 @@ chmod +x marbles-*.AppImage
 ./marbles-*.AppImage
 ```
 
-Two things can stop it from starting on Ubuntu and systems based on it.
+<details>
+<summary><b>"AppImages require FUSE to run."</b></summary>
 
-**"AppImages require FUSE to run."** Install libfuse2:
+<br>
+
+Install libfuse2:
 
 ```bash
 sudo apt install libfuse2t64   # Ubuntu 24.04 and later
 sudo apt install libfuse2      # Ubuntu 22.04
 ```
 
-**"The SUID sandbox helper binary was found, but is not configured correctly."** Ubuntu 24.04 and later block the feature Chromium's sandbox is built on unless an app has an AppArmor profile. Give Marbles one. Keep the AppImage in a fixed place such as `~/Applications`, then create `/etc/apparmor.d/marbles` with your own path in it:
+</details>
+
+<details>
+<summary><b>"The SUID sandbox helper binary was found, but is not configured correctly."</b></summary>
+
+<br>
+
+Ubuntu 24.04 and later block the feature Chromium's sandbox is built on unless an app has an AppArmor profile. Give Marbles one. Keep the AppImage in a fixed place such as `~/Applications`, then create `/etc/apparmor.d/marbles` with your own path in it:
 
 ```
 abi <abi/4.0>,
@@ -81,11 +139,20 @@ sudo apparmor_parser -r /etc/apparmor.d/marbles
 
 Starting Marbles with `--no-sandbox` also gets past the error, but it turns off a layer of protection around the tools Marbles generates. Use the profile.
 
+</details>
+
+<details>
+<summary><b>No password keyring</b></summary>
+
+<br>
+
 Without a password keyring (GNOME Keyring or KWallet), Marbles can't store your sign-in or API key encrypted. It asks whether to keep it for the session only or save it unencrypted.
+
+</details>
 
 ## What leaves your computer
 
-Marbles has no server, no account, no analytics and no crash reporting. It connects to these places and no others:
+Marbles has no server, no account, no analytics and no crash reporting. It connects to these places and no others.
 
 **Your AI provider, when you build or change a tool.** Marbles sends your request, and when you change a tool, that tool's current code and your recent messages about it. When you click Fix on an error, the error text goes too. A small extra request names each new tool. This goes to one of:
 
@@ -115,11 +182,11 @@ Tools can't reach your computer or your home or office network unless you allow 
 
 The library (your tools, their versions and chats) is in `library` inside that folder. You can move it in **Settings → Library**, for example into a synced folder. Your API key and ChatGPT sign-in are stored there too, encrypted with your system's keychain.
 
-Uninstalling Marbles is deleting the app, and that folder if you don't want to keep your tools.
+To remove Marbles completely, uninstall the app and delete that folder. Keep the folder if you want your tools back later.
 
 ## Contributing
 
-[CONTRIBUTING.md](CONTRIBUTING.md) covers running Marbles from source, the checks and how releases are made. Bug reports and ideas are welcome in the issue tracker.
+[CONTRIBUTING.md](CONTRIBUTING.md) covers running Marbles from source, the checks and how releases are made. Bug reports and ideas are welcome in the [issue tracker](https://github.com/edbergc7/marbles/issues).
 
 ## License
 
